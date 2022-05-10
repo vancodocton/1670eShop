@@ -13,5 +13,7 @@ namespace WebApplication1.Data
         }
 
         public DbSet<Store> Store { get; set; }
+
+        public DbSet<Book> Book { get; set; }
     }
 }
