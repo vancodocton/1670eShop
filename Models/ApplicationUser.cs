@@ -8,5 +8,6 @@ namespace WebApplication1.Models
         public string FullName { get; set; }
 
         public string Address { get; set; }
+        public Store Store { get; set; }
     }
 }

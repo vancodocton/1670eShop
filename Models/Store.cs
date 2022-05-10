@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#pragma warning disable CS8618
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models
 {
@@ -7,8 +8,8 @@ namespace WebApplication1.Models
         [Key]
         public int Id { get; set; }
 
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        public string UserId { get; set; } = string.Empty;
+        public ApplicationUser? User { get; set; }
 
         [StringLength(80)]
         public string Name { get; set; }

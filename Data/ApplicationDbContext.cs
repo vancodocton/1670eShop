@@ -11,5 +11,7 @@ namespace WebApplication1.Data
             : base(options)
         {
         }
+
+        public DbSet<Store> Store { get; set; }
     }
 }
