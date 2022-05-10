@@ -17,7 +17,7 @@ namespace WebApplication1.Models
 
         public string Title { get; set; }
 
-        [Range(0, double.MaxValue,ErrorMessage = "Price is more th")]
+        [Range(0, double.MaxValue,ErrorMessage = "Price is more than 0")]
         [DataType(DataType.Currency)]
         public double Price { get; set; }
 
