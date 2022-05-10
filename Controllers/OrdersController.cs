@@ -1,16 +1,13 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = Role.Customer)]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -46,7 +43,7 @@ namespace WebApplication1.Controllers
             }
 
             return View(order);
-        }        
+        }
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)

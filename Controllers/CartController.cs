@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using WebApplication1.Data;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = Role.Customer)]
     public class CartController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -135,8 +136,6 @@ namespace WebApplication1.Controllers
         public async Task<IActionResult> Checkout()
         {
             var user = await userManager.GetUserAsync(User);
-
-            //var a = new Dictionary<int, List<CartItem>>();
 
             var items = await context.CartItem
                 .Include(c => c.Book)

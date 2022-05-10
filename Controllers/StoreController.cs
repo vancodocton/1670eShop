@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Models;
@@ -73,9 +68,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        // POST: Store/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,Name")] Store store)
@@ -93,7 +85,7 @@ namespace WebApplication1.Controllers
             return View(store);
         }
 
-        // GET: Store/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit()
         {
             var userId = userManager.GetUserId(User);
@@ -109,9 +101,6 @@ namespace WebApplication1.Controllers
             return View(store);
         }
 
-        // POST: Store/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("Id,UserId,Name")] Store store)
@@ -146,7 +135,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Store/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        private async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -167,7 +156,7 @@ namespace WebApplication1.Controllers
         // POST: Store/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        private async Task<IActionResult> DeleteConfirmed(int id)
         {
             var store = await context.Store.FindAsync(id);
             context.Store.Remove(store);

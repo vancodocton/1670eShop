@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
             return View(store.Books);
         }
 
-        // GET: StoreBooks/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -51,15 +51,12 @@ namespace WebApplication1.Controllers
             return View(book);
         }
 
-        // GET: StoreBooks/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: StoreBooks/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Isbn,Title,Price")] Book book)
@@ -77,7 +74,7 @@ namespace WebApplication1.Controllers
             return View(book);
         }
 
-        // GET: StoreBooks/Edit/5
+        [HttpGet]
         private async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,9 +90,6 @@ namespace WebApplication1.Controllers
             return View(book);
         }
 
-        // POST: StoreBooks/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         private async Task<IActionResult> Edit(string id, [Bind("Isbn,Title,Price")] Book book)
