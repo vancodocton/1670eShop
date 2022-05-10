@@ -16,6 +16,8 @@ namespace WebApplication1.Data
 
         public DbSet<Book> Book { get; set; }
 
+        public DbSet<Order> Order { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -31,6 +33,19 @@ namespace WebApplication1.Data
                 b.HasOne(c => c.User)
                 .WithMany(u => u.CartItems)
                 .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            builder.Entity<OrderItem>(b =>
+            {
+                b.HasKey(c => new { c.BookIsBn, c.OrderId });
+                b.HasOne(c => c.Book)
+                .WithMany()
+                .IsRequired()
+                .OnDelete(DeleteBehavior.NoAction);
+
+                b.HasOne(c => c.Order)
+                .WithMany(u => u.Items)
+                .OnDelete(DeleteBehavior.Cascade);
             });
         }
 

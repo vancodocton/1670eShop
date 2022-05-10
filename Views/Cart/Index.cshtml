@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Book.Store)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Book)
             </th>
             <th>
@@ -30,26 +33,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Price)
-            </td>
-            <td>
-                @(item.Book.Price * item.Quantity)
-            </td>
-            <td>
-                <a asp-action="IncreaseQuantity" asp-route-Isbn="@item.BookIsBn">+</a>
-                <a asp-action="DecreaseQuantity" asp-route-Isbn="@item.BookIsBn">-</a>
-                <a asp-action="Remove" asp-route-Isbn="@item.BookIsBn">Remove</a>
-            </td>
-        </tr>}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Store.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Price)
+                </td>
+                <td>
+                    @(item.Book.Price * item.Quantity)
+                </td>
+                <td>
+                    <a asp-action="IncreaseQuantity" asp-route-Isbn="@item.BookIsBn">+</a>
+                    <a asp-action="DecreaseQuantity" asp-route-Isbn="@item.BookIsBn">-</a>
+                    <a asp-action="Remove" asp-route-Isbn="@item.BookIsBn">Remove</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-<h6>Total price: @(Model.Select(i => i.Book.Price * i.Quantity).Sum())</h6>
+<h6>Total price: @(Model.Select(i => i.Book.Price * i.Quantity).Sum()) <span class="text-danger">No include shipping price.</span></h6>

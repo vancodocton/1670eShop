@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace WebApplication1.Models
 {
     public class Order
     {
@@ -6,10 +8,24 @@
 
         public string UserId { get; set; }
 
+        public ApplicationUser User { get; set; }
+
         public int StoreId { get; set; }
 
-        public double TotalPrice { get; set; }
+        public double TotalPrice { get; private set; }
 
-        public List<OrderItem> Items { get; set; } = new();
+        private List<OrderItem> items = new();
+        public List<OrderItem> Items
+        {
+            get
+            {
+                return items;
+            }
+            set
+            {
+                items = value;
+                TotalPrice = Items.Sum(i => i.Quantity * i.Price);
+            }
+        }
     }
 }

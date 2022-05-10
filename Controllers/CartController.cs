@@ -11,11 +11,16 @@ namespace WebApplication1.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ILogger<CartController> logger;
 
-        public CartController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public CartController(
+            ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            ILogger<CartController> logger)
         {
             this.context = context;
             this.userManager = userManager;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -26,6 +31,7 @@ namespace WebApplication1.Controllers
                 .Include(c => c.Book)
                 .ThenInclude(b => b.Store)
                 .Where(c => c.UserId == userId)
+                .OrderBy(c => c.Book.StoreId)
                 .ToListAsync();
             return View(items);
         }
@@ -130,7 +136,7 @@ namespace WebApplication1.Controllers
         {
             var user = await userManager.GetUserAsync(User);
 
-            var a = new Dictionary<int, List<CartItem>>();
+            //var a = new Dictionary<int, List<CartItem>>();
 
             var items = await context.CartItem
                 .Include(c => c.Book)
@@ -138,7 +144,7 @@ namespace WebApplication1.Controllers
                 .Where(c => c.UserId == user.Id)
                 .ToListAsync();
 
-            var aa = items.AsQueryable()
+            var orders = items.AsQueryable()
                 .GroupBy(c => c.Book.StoreId)
                 .Select(x => new Order()
                 {
@@ -146,10 +152,21 @@ namespace WebApplication1.Controllers
                     StoreId = x.Key,
                     Items = x.Select(i => new OrderItem()
                     {
-                        BookIsBn = i.BookIsBn
-                    }).ToList()
+                        BookIsBn = i.BookIsBn,
+                        Quantity = i.Quantity,
+                        Price = i.Book.Price
+                    }).ToList(),
                 })
                 .ToList();
+
+            user.Orders.AddRange(orders);
+
+            context.CartItem.RemoveRange(items);
+
+            var row = await context.SaveChangesAsync();
+
+            foreach (var order in orders)
+                logger.LogInformation($"Checkouted order'Id={order.Id}' with price: {order.TotalPrice}.");
 
             return RedirectToAcionIndex;
         }

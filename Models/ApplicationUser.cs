@@ -12,5 +12,7 @@ namespace WebApplication1.Models
         public Store Store { get; set; }
 
         public List<CartItem> CartItems { get; set; } = new();
+
+        public List<Order> Orders { get; set; } = new();
     }
 }
