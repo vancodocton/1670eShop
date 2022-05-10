@@ -10,7 +10,10 @@ namespace WebApplication1.Models
         [StringLength(20)]
         public string Isbn { get; set; }
 
-        public int StoreId { get; set; }    
+        public int StoreId { get; set; } 
+        
+        [ValidateNever]
+        public Store Store { get; set; }
 
         public string Title { get; set; }
 
