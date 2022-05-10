@@ -12,7 +12,7 @@ namespace WebApplication1.Extensions
                 .GetRequiredService<RoleManager<IdentityRole>>();
 
             await roleManager.CreateAsync(new IdentityRole(Role.Seller));
-            await roleManager.CreateAsync(new IdentityRole(Role.Seller));
+            await roleManager.CreateAsync(new IdentityRole(Role.Customer));
 
             return services;
         }

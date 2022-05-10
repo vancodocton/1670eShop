@@ -5,5 +5,7 @@
         public const string Customer = "customer";
 
         public const string Seller = "selller";
+
+        public static List<string> ToList() => new() { Customer, Seller };
     }
 }
