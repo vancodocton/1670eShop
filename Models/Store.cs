@@ -16,6 +16,8 @@ namespace WebApplication1.Models
 
         public List<Book> Books { get; set; } = new();
 
+        public List<Order> Orders { get; set; } = new();
+
         ////
         /// another properties
         ///

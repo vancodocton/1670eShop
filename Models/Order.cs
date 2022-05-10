@@ -12,6 +12,8 @@ namespace WebApplication1.Models
 
         public int StoreId { get; set; }
 
+        public Store Store { get; set; }
+
         public double TotalPrice { get; private set; }
 
         private List<OrderItem> items = new();
@@ -27,5 +29,7 @@ namespace WebApplication1.Models
                 TotalPrice = Items.Sum(i => i.Quantity * i.Price);
             }
         }
+
+        //public OrderStatus Status { get; set; }
     }
 }

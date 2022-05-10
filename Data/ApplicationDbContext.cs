@@ -47,6 +47,12 @@ namespace WebApplication1.Data
                 .WithMany(u => u.Items)
                 .OnDelete(DeleteBehavior.Cascade);
             });
+
+            builder.Entity<Order>()
+                .HasOne(o => o.Store)
+                .WithMany(s => s.Orders)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<WebApplication1.Models.CartItem> CartItem { get; set; }
