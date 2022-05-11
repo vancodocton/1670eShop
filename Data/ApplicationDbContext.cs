@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using WebApplication1.ViewModels;
 
 namespace WebApplication1.Data
 {
@@ -17,6 +18,8 @@ namespace WebApplication1.Data
         public DbSet<Book> Book { get; set; }
 
         public DbSet<Order> Order { get; set; }
+
+        public DbSet<CartItem> CartItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -54,7 +57,5 @@ namespace WebApplication1.Data
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
         }
-
-        public DbSet<WebApplication1.Models.CartItem> CartItem { get; set; }
     }
 }
